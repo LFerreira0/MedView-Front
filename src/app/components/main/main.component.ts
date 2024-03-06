@@ -20,6 +20,7 @@ export class MainComponent implements OnInit{
   email!: string;
   logged = false;
   settings = false;
+  token !: string;
 
   public loginForm = new FormGroup({
     email: new FormControl("", Validators.required),
@@ -70,6 +71,7 @@ export class MainComponent implements OnInit{
         this.sidebarVisible = false;
         this.buttonVisible = false;
         this.logged = true;
+        this.token = user.token;
         this.userName = result.user.name.split(' ');
         this.userName = this.userName[0];
         this.email = result.user.email;
@@ -95,6 +97,13 @@ export class MainComponent implements OnInit{
           this.loginUser(user);
         }, 3000);
     })
+  }
+
+  public logout() {
+    this.logged = false;
+    this.settings = false;
+    this.buttonVisible = true;
+    this.token = '';
   }
 
 }
