@@ -1,0 +1,81 @@
+<div class="container">
+  <nav>
+
+  </nav>
+  <div class="search">
+    <input type="text" id="search" name="search" placeholder="Informe o remédio ou posto que procura">
+  </div>
+  <div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.076086197918!2d-46.43653308827611!3d-23.60160406298483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce6f51f03dc54b%3A0x1f0820473fd4e120!2sR.%20Gilda%20Azevedo%2C%2062%20-%20Jardim%20Bandeirante%20(Sao%20Rafael)%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2008372-070!5e0!3m2!1spt-BR!2sbr!4v1709682955826!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <div class="account">
+    <div *ngIf="logged" class="logged" (click)="settings = !settings">
+      <p>{{userName}}</p>
+    </div>
+
+    <div *ngIf="buttonVisible" class="unlogged">
+        <button (click)="buttonVisible = !buttonVisible; sidebarVisible = !sidebarVisible">Fazer login</button>
+    </div>
+  </div>
+
+  <div class="sidebar" *ngIf="this.sidebarVisible">
+
+    <span class="closeSideBar" (click)="this.sidebarVisible = !this.sidebarVisible; this.buttonVisible = !this.buttonVisible">x</span>
+
+      <h1>MedView</h1>
+      <div class="loginUserForm">
+        <form [formGroup]="loginForm">
+          <h1>Entre em sua conta</h1><br>
+          <div class="inputGroup">
+          <label for="email">E-mail: </label>
+          <input id="email" type="email" formControlName="email" /><br>
+        </div>
+        <div class="inputGroup">
+          <label for="password">Senha: </label>
+          <input id="password" type="password" formControlName="password" /><br>
+        </div>
+        <br>
+          <button (click)="defineUser()" [disabled]="!loginForm.valid">Entrar</button>
+          <br><br><br>
+          <hr>
+        </form>
+      </div>
+      <br>
+      <div class="createUserForm">
+        <form [formGroup]="newUserForm">
+          <h1>Crie sua conta</h1><br>
+          <div class="inputGroup">
+            <label for="name">Nome: </label>
+            <input id="name" type="text" formControlName="name" /><br>
+          </div>
+          <div class="inputGroup">
+            <label for="creatEmail">E-mail: </label>
+            <input id="creatEmail" type="email" formControlName="creatEmail" /><br>
+          </div>
+          <div class="inputGroup">
+            <label for="createPassword">Senha: </label>
+            <input id="createPassword" type="password" formControlName="createPassword" /><br>
+          </div>
+          <br>
+          <button (click)="createUser()" [disabled]="!newUserForm.valid">Criar</button>
+          <br><br>
+          <span id="sucessMessage" *ngIf="creationMessage">{{creationMessage}}</span>
+
+        </form>
+      </div>
+  </div>
+</div>
+
+
+<div class="accountSetting" *ngIf="settings">
+    <div class="close"  (click)="settings = !settings">x</div>
+    <div class="profile">
+      <p>{{email}}</p>
+      <br>
+      <img src="../../../assets/images/man.png" alt=""><br>
+      <p>Olá, {{userName}}</p><br>
+      <button>Configurações da conta</button><br>
+      <button id="logout">Logout</button><br>
+    </div>
+</div>
